@@ -2,8 +2,8 @@
   <view class="tab-container">
     <scroll-view scroll-x="true" class="tab-scroll">
       <view class="tab-inner">
-        <view class="tab-item" v-for="(item,index) in list" :key="index">
-          {{ item }}
+        <view class="tab-item" v-for="(item,index) in labelList" :key="index">
+          {{ item.name }}
         </view>
       </view>
     </scroll-view>
@@ -14,12 +14,23 @@
 </template>
 
 <script>
+
 export default {
   name: "TabBar",
   data() {
     return {
-      list: ["项目1", "项目2", "项目3", "项目4", "项目5", "项目6", "项目7"]
+      labelList: [],
     };
+  },
+  mounted() {
+    this.fetchLabelList();
+  },
+  methods: {
+    fetchLabelList() {
+      this.$http.getLabelList().then(res => {
+        this.labelList = res;
+      })
+    }
   }
 }
 </script>
@@ -49,6 +60,7 @@ export default {
     flex-shrink: 0;
     position: relative;
   }
+
   .tab-icon::before {
     width: 2rpx;
     height: 40rpx;

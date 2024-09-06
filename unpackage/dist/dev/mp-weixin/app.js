@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
 const common_vendor = require("./common/vendor.js");
+const api_index = require("./api/index.js");
 if (!Math) {
   "./pages/index/index.js";
   "./pages/follow/follow.js";
@@ -20,6 +21,7 @@ const _sfc_main = {
 };
 function createApp() {
   const app = common_vendor.createSSRApp(_sfc_main);
+  app.config.globalProperties.$http = api_index.module;
   return {
     app
   };
