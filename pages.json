@@ -26,6 +26,13 @@
     		"navigationBarTitleText" : "",
           "navigationBarBackgroundColor": "#333"
     	}
+    },
+    {
+    	"path" : "pages/labelAdmin/labelAdmin",
+    	"style" : 
+    	{
+    		"navigationBarTitleText" : ""
+    	}
     }
   ],
   "globalStyle": {

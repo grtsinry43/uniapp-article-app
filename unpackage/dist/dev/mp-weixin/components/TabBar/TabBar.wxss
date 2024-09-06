@@ -38,7 +38,7 @@
   padding: 0 1em;
 }
 .tab-container .tab-inner .tab-item.data-v-e632d448 {
-  margin: 0.7em;
+  padding: 0.7em;
   flex-shrink: 0;
 }
 .tab-container .tab-icon.data-v-e632d448 {
@@ -56,4 +56,8 @@
   left: 0;
   top: 50%;
   transform: translateY(-50%);
+}
+.active.data-v-e632d448 {
+  color: #004795;
+  font-weight: bold;
 }

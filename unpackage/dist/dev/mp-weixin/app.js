@@ -7,6 +7,7 @@ if (!Math) {
   "./pages/follow/follow.js";
   "./pages/self/self.js";
   "./pages/search/search.js";
+  "./pages/labelAdmin/labelAdmin.js";
 }
 const _sfc_main = {
   onLaunch: function() {

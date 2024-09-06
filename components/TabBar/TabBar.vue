@@ -1,35 +1,49 @@
 <template>
   <view class="tab-container">
-    <scroll-view scroll-x="true" class="tab-scroll">
+    <scroll-view scroll-x="true" class="tab-scroll" :scroll-with-animation="true" :scroll-into-view="curItem">
       <view class="tab-inner">
-        <view class="tab-item" v-for="(item,index) in labelList" :key="index">
+        <view @click="changeActiveIndexHandle(index)" class="tab-item" :class="{active:currentIndex === index}"
+              :id="'item_' + index" v-for="(item,index) in labelList" :key="index">
           {{ item.name }}
         </view>
       </view>
     </scroll-view>
     <view class="tab-icon">
-      <uni-icons type="gear" size="26" color="666"/>
+      <uni-icons @click="labelAdminHandle" type="gear" size="26" color="666"/>
     </view>
   </view>
 </template>
 
 <script>
-
 export default {
   name: "TabBar",
   data() {
     return {
-      labelList: [],
-    };
+      curItem: "item_0",
+    }
   },
-  mounted() {
-    this.fetchLabelList();
+  watch: {
+    currentIndex(index) {
+      this.curItem = "item_" + index;
+    }
+  },
+  props: {
+    labelList: {
+      type: Array,
+      default: () => []
+    },
+    currentIndex: {
+      type: Number,
+    },
   },
   methods: {
-    fetchLabelList() {
-      this.$http.getLabelList().then(res => {
-        this.labelList = res;
+    labelAdminHandle() {
+      uni.navigateTo({
+        url: "/pages/labelAdmin/labelAdmin"
       })
+    },
+    changeActiveIndexHandle(index) {
+      this.$emit("pageChanged", index)
     }
   }
 }
@@ -50,7 +64,7 @@ export default {
     padding: 0 1em;
 
     .tab-item {
-      margin: 0.7em;
+      padding: 0.7em;
       flex-shrink: 0;
     }
   }
@@ -74,4 +88,8 @@ export default {
   }
 }
 
+.active {
+  color: #004795;
+  font-weight: bold;
+}
 </style>

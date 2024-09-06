@@ -7672,6 +7672,12 @@ const pages = [
       navigationBarTitleText: "",
       navigationBarBackgroundColor: "#333"
     }
+  },
+  {
+    path: "pages/labelAdmin/labelAdmin",
+    style: {
+      navigationBarTitleText: ""
+    }
   }
 ];
 const globalStyle = {
