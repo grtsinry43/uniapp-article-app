@@ -10,15 +10,11 @@ const _sfc_main = {
   data() {
     return {
       articleData: {},
-      // 存储不同分类下的文章列表
-      page: 1,
-      // 当前分页
+      // 存储不同分类下的文章列表 { 0: { list: [...], page: 1, isEnd: false } }
       pageSize: 6,
       // 每页显示的文章数量
-      isLoading: false,
+      isLoading: false
       // 是否正在加载
-      isEnd: false
-      // 是否已加载完所有数据
     };
   },
   watch: {
@@ -32,34 +28,35 @@ const _sfc_main = {
     changeCurrentIndex(e) {
       const { current } = e.detail;
       this.$emit("changeCurrentIndex", current);
-      this.page = 1;
-      this.isEnd = false;
-      if (!this.articleData[current] || this.articleData[current].length === 0) {
+      const categoryData = this.articleData[current];
+      if (!categoryData || categoryData.list.length === 0) {
         this._getArticleList(current);
       }
     },
     // 获取文章列表
     async _getArticleList(currentIndex) {
-      if (this.isLoading || this.isEnd)
+      const categoryData = this.articleData[currentIndex] || { list: [], page: 1, isEnd: false };
+      if (this.isLoading || categoryData.isEnd)
         return;
       this.isLoading = true;
       try {
         const response = await this.$http.getArticleList({
           classify: this.labelList[currentIndex].name,
           // 根据分类获取文章
-          page: this.page,
+          page: categoryData.page,
           pageSize: this.pageSize
         });
         const articleList = response.articleList || [];
-        if (articleList.length === 0) {
-          this.isEnd = true;
-          console.log("没有数据了");
-        } else {
-          this.$set(this.articleData, currentIndex, [
-            ...this.articleData[currentIndex] || [],
-            ...articleList
-          ]);
+        if (articleList.length < this.pageSize) {
+          categoryData.isEnd = true;
         }
+        categoryData.list = [
+          ...categoryData.list,
+          // 追加数据
+          ...articleList
+        ];
+        categoryData.page++;
+        this.$set(this.articleData, currentIndex, categoryData);
       } catch (error) {
         console.error("加载文章列表失败:", error);
       } finally {
@@ -68,8 +65,8 @@ const _sfc_main = {
     },
     // 加载更多数据
     loadMoreDataHandle() {
-      if (!this.isEnd) {
-        this.page++;
+      const categoryData = this.articleData[this.activeIndex] || { page: 1, isEnd: false };
+      if (!categoryData.isEnd && !this.isLoading) {
         this._getArticleList(this.activeIndex);
       }
     }
@@ -89,11 +86,12 @@ if (!Math) {
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   return {
     a: common_vendor.f($props.labelList, (item, index, i0) => {
+      var _a;
       return {
         a: common_vendor.o($options.loadMoreDataHandle, item._id),
         b: "0942d1e7-0-" + i0,
         c: common_vendor.p({
-          articleList: $data.articleData[index],
+          articleList: ((_a = $data.articleData[index]) == null ? void 0 : _a.list) || [],
           ["is-loading"]: $data.isLoading
         }),
         d: item._id

@@ -2,7 +2,8 @@
   <swiper class="swiper-container" :current="activeIndex" @change="changeCurrentIndex">
     <swiper-item v-for="(item, index) in labelList" :key="item._id">
       <view class="swiper-item">
-        <ListItem :articleList="articleData[index]" :is-loading="isLoading" @loadMore="loadMoreDataHandle"></ListItem>
+        <ListItem :articleList="articleData[index]?.list || []" :is-loading="isLoading"
+                  @loadMore="loadMoreDataHandle"></ListItem>
       </view>
     </swiper-item>
   </swiper>
@@ -16,11 +17,9 @@ export default {
   },
   data() {
     return {
-      articleData: {}, // 存储不同分类下的文章列表
-      page: 1, // 当前分页
+      articleData: {}, // 存储不同分类下的文章列表 { 0: { list: [...], page: 1, isEnd: false } }
       pageSize: 6, // 每页显示的文章数量
       isLoading: false, // 是否正在加载
-      isEnd: false, // 是否已加载完所有数据
     };
   },
   watch: {
@@ -35,37 +34,40 @@ export default {
       const {current} = e.detail;
       this.$emit('changeCurrentIndex', current); // 向父组件发送当前索引变化的事件
 
-      // 每次切换栏目时重置分页信息
-      this.page = 1; // 重置页码
-      this.isEnd = false; // 重置是否加载完数据的标志
-
-      if (!this.articleData[current] || this.articleData[current].length === 0) {
+      // 检查该栏目是否有数据或者是否已加载完毕
+      const categoryData = this.articleData[current];
+      if (!categoryData || categoryData.list.length === 0) {
         this._getArticleList(current); // 当切换到的分类还没有数据时，获取数据
       }
     },
     // 获取文章列表
     async _getArticleList(currentIndex) {
-      if (this.isLoading || this.isEnd) return; // 如果正在加载或已加载完数据则不再请求
+      const categoryData = this.articleData[currentIndex] || {list: [], page: 1, isEnd: false};
+
+      if (this.isLoading || categoryData.isEnd) return; // 如果正在加载或该分类已加载完数据则不再请求
 
       this.isLoading = true; // 设置加载状态为 true
       try {
         const response = await this.$http.getArticleList({
           classify: this.labelList[currentIndex].name, // 根据分类获取文章
-          page: this.page,
+          page: categoryData.page,
           pageSize: this.pageSize,
         });
 
         const articleList = response.articleList || [];
-        if (articleList.length === 0) {
-          this.isEnd = true; // 如果没有更多数据，设置 isEnd 为 true
-          console.log("没有数据了")
-        } else {
-          // 将新获取的文章合并到已有的数据中
-          this.$set(this.articleData, currentIndex, [
-            ...(this.articleData[currentIndex] || []),
-            ...articleList
-          ]);
+        if (articleList.length < this.pageSize) {
+          categoryData.isEnd = true; // 如果获取的数据小于 pageSize，设置该分类 isEnd 为 true
         }
+
+        categoryData.list = [
+          ...categoryData.list, // 追加数据
+          ...articleList
+        ];
+        categoryData.page++; // 分页加1
+
+        // 更新 articleData 中的分类数据
+        this.$set(this.articleData, currentIndex, categoryData);
+
       } catch (error) {
         console.error('加载文章列表失败:', error);
       } finally {
@@ -74,8 +76,8 @@ export default {
     },
     // 加载更多数据
     loadMoreDataHandle() {
-      if (!this.isEnd) {
-        this.page++; // 分页递增
+      const categoryData = this.articleData[this.activeIndex] || {page: 1, isEnd: false};
+      if (!categoryData.isEnd && !this.isLoading) {
         this._getArticleList(this.activeIndex); // 加载更多文章
       }
     }
@@ -85,7 +87,6 @@ export default {
     this._getArticleList(this.activeIndex);
   }
 };
-
 </script>
 
 <style lang="scss">
