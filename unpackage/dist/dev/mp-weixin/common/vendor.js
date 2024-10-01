@@ -8251,7 +8251,7 @@ class v {
 function I(e2) {
   return e2 && "string" == typeof e2 ? JSON.parse(e2) : e2;
 }
-const S = true, b = "mp-weixin", A = I(define_process_env_UNI_SECURE_NETWORK_CONFIG_default), C = b, P = I('{\n    "address": [\n        "127.0.0.1",\n        "198.18.0.1",\n        "192.168.1.140",\n        "172.22.80.1"\n    ],\n    "debugPort": 9000,\n    "initialLaunchType": "local",\n    "servePort": 7000,\n    "skipFiles": [\n        "<node_internals>/**",\n        "C:/Users/grtsi/Downloads/HBuilderX/plugins/unicloud/**/*.js"\n    ]\n}\n'), T = I('[{"provider":"aliyun","spaceName":"uniapp-article-app","spaceId":"mp-bbfb11c8-8518-4217-999e-2c1eba805c79","clientSecret":"CJRwCYKHWpKM3VnW0o4BYw==","endpoint":"https://api.next.bspapp.com"}]') || [];
+const S = true, b = "mp-weixin", A = I(define_process_env_UNI_SECURE_NETWORK_CONFIG_default), C = b, P = I('{\n    "address": [\n        "127.0.0.1",\n        "198.18.0.1",\n        "172.22.80.1",\n        "192.168.1.116"\n    ],\n    "debugPort": 9000,\n    "initialLaunchType": "local",\n    "servePort": 7000,\n    "skipFiles": [\n        "<node_internals>/**",\n        "C:/Users/grtsi/Downloads/HBuilderX/plugins/unicloud/**/*.js"\n    ]\n}\n'), T = I('[{"provider":"aliyun","spaceName":"uniapp-article-app","spaceId":"mp-bbfb11c8-8518-4217-999e-2c1eba805c79","clientSecret":"CJRwCYKHWpKM3VnW0o4BYw==","endpoint":"https://api.next.bspapp.com"}]') || [];
 let O = "";
 try {
   O = "__UNI__0F06A9B";

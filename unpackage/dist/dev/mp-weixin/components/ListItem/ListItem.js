@@ -5,10 +5,16 @@ const _sfc_main = {
   props: {
     articleList: {
       type: Array
-    }
+    },
+    isLoading: Boolean
   },
   data() {
     return {};
+  },
+  methods: {
+    loadMoreHandle() {
+      this.$emit("loadMore");
+    }
   }
 };
 if (!Array) {
@@ -33,8 +39,9 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
       };
     }),
     b: common_vendor.p({
-      status: "loading"
-    })
+      status: $props.isLoading ? "loading" : ""
+    }),
+    c: common_vendor.o((...args) => $options.loadMoreHandle && $options.loadMoreHandle(...args))
   };
 }
 const Component = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render]]);
