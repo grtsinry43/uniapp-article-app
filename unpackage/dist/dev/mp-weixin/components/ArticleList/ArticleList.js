@@ -20,11 +20,19 @@ const _sfc_main = {
     }
   }
 };
+if (!Array) {
+  const _easycom_ListItem2 = common_vendor.resolveComponent("ListItem");
+  _easycom_ListItem2();
+}
+const _easycom_ListItem = () => "../ListItem/ListItem.js";
+if (!Math) {
+  _easycom_ListItem();
+}
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   return {
     a: common_vendor.f($props.labelList, (item, index, i0) => {
       return {
-        a: common_vendor.t(item),
+        a: "0942d1e7-0-" + i0,
         b: index
       };
     }),

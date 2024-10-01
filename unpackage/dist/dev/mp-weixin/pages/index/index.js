@@ -9,6 +9,10 @@ const _sfc_main = {
   },
   mounted() {
     this.fetchLabelList();
+    console.log(this.$http);
+    this.$http.getArticleList().then((res) => {
+      console.log(res);
+    });
   },
   methods: {
     fetchLabelList() {

@@ -1,0 +1,1 @@
+<view class="list-item-container data-v-0f582daa"><scroll-view scroll-y="true" class="list-inner data-v-0f582daa"><view class="data-v-0f582daa"><list-card wx:for="{{a}}" wx:for-item="item" wx:key="a" class="data-v-0f582daa" u-i="{{item.b}}" bind:__l="__l" u-p="{{item.c}}"></list-card></view></scroll-view></view>

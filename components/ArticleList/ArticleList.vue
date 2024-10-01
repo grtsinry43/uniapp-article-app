@@ -1,7 +1,9 @@
 <template>
   <swiper :current="currentIndex" @change="swipePageHandle">
     <swiper-item v-for="(item,index) in labelList" :key="index">
-      <view class="swiper-item">{{ item }}</view>
+      <view class="swiper-item">
+        <ListItem></ListItem>
+      </view>
     </swiper-item>
   </swiper>
 </template>
@@ -30,5 +32,7 @@ export default {
 </script>
 
 <style>
-
+.swiper-item {
+  height: 100%;
+}
 </style>

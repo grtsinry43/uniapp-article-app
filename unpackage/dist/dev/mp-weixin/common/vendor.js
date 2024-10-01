@@ -6813,6 +6813,7 @@ function stringify(styles) {
 const o$1 = (value, key) => vOn(value, key);
 const f$1 = (source, renderItem) => vFor(source, renderItem);
 const s$1 = (value) => stringifyStyle(value);
+const e$1 = (target, ...sources) => extend(target, ...sources);
 const n$1 = (value) => normalizeClass(value);
 const t$1 = (val) => toDisplayString(val);
 const p$1 = (props) => renderProps(props);
@@ -8008,7 +8009,7 @@ class v {
 function I(e2) {
   return e2 && "string" == typeof e2 ? JSON.parse(e2) : e2;
 }
-const S = true, b = "mp-weixin", A = I(define_process_env_UNI_SECURE_NETWORK_CONFIG_default), C = b, P = I(""), T = I('[{"provider":"aliyun","spaceName":"uniapp-article-app","spaceId":"mp-bbfb11c8-8518-4217-999e-2c1eba805c79","clientSecret":"CJRwCYKHWpKM3VnW0o4BYw==","endpoint":"https://api.next.bspapp.com"}]') || [];
+const S = true, b = "mp-weixin", A = I(define_process_env_UNI_SECURE_NETWORK_CONFIG_default), C = b, P = I('{\n    "address": [\n        "127.0.0.1",\n        "198.18.0.1",\n        "192.168.1.140",\n        "172.22.80.1"\n    ],\n    "debugPort": 9000,\n    "initialLaunchType": "local",\n    "servePort": 7000,\n    "skipFiles": [\n        "<node_internals>/**",\n        "C:/Users/grtsi/Downloads/HBuilderX/plugins/unicloud/**/*.js"\n    ]\n}\n'), T = I('[{"provider":"aliyun","spaceName":"uniapp-article-app","spaceId":"mp-bbfb11c8-8518-4217-999e-2c1eba805c79","clientSecret":"CJRwCYKHWpKM3VnW0o4BYw==","endpoint":"https://api.next.bspapp.com"}]') || [];
 let O = "";
 try {
   O = "__UNI__0F06A9B";
@@ -10450,6 +10451,7 @@ var Vs = Js;
 exports.Vs = Vs;
 exports._export_sfc = _export_sfc;
 exports.createSSRApp = createSSRApp;
+exports.e = e$1;
 exports.f = f$1;
 exports.index = index;
 exports.n = n$1;

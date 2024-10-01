@@ -1,6 +1,6 @@
 {
   "component": true,
   "usingComponents": {
-    "list-item": "../ListItem/ListItem"
+    "save-likes": "../SaveLikes"
   }
 }
