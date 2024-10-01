@@ -1,6 +1,6 @@
 {
   "component": true,
   "usingComponents": {
-    "save-likes": "../SaveLikes"
+    "save-likes": "../SaveLikes/SaveLikes"
   }
 }

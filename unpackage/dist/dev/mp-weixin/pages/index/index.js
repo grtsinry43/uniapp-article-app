@@ -1,30 +1,23 @@
 "use strict";
 const common_vendor = require("../../common/vendor.js");
 const _sfc_main = {
+  onLoad() {
+    this._intiLabelList();
+  },
   data() {
     return {
       labelList: [],
-      currentIndex: 0
+      activeIndex: 0
     };
   },
-  mounted() {
-    this.fetchLabelList();
-    console.log(this.$http);
-    this.$http.getArticleList().then((res) => {
-      console.log(res);
-    });
-  },
   methods: {
-    fetchLabelList() {
-      this.$http.getLabelList().then((res) => {
-        this.labelList = res;
-      });
+    async _intiLabelList() {
+      const labelList = await this.$http.getLabelList();
+      this.labelList = [{ name: "全部" }, ...labelList];
     },
-    pageChangedHandle(index) {
-      this.currentIndex = index;
-    },
-    swipePageChangeHandle(index) {
-      this.currentIndex = index;
+    /* 修改当前activeIndex值 */
+    changeCurrentIndex(index) {
+      this.activeIndex = index;
     }
   }
 };
@@ -42,17 +35,17 @@ if (!Math) {
 }
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   return {
-    a: common_vendor.o($options.pageChangedHandle),
+    a: common_vendor.o($options.changeCurrentIndex),
     b: common_vendor.p({
       labelList: $data.labelList,
-      currentIndex: $data.currentIndex
+      activeIndex: $data.activeIndex
     }),
-    c: common_vendor.o($options.swipePageChangeHandle),
+    c: common_vendor.o($options.changeCurrentIndex),
     d: common_vendor.p({
       labelList: $data.labelList,
-      currentIndex: $data.currentIndex
+      activeIndex: $data.activeIndex
     })
   };
 }
-const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-1cf27b2a"]]);
+const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render]]);
 wx.createPage(MiniProgramPage);

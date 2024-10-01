@@ -3,5 +3,6 @@
   "projectname": "uniapp-article-app",
   "setting": {
     "compileHotReLoad": true
-  }
+  },
+  "libVersion": "3.5.8"
 }

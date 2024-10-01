@@ -1,62 +1,51 @@
 <template>
-  <view class="home-container">
-    <NavBar/>
-    <TabBar :labelList="labelList" :currentIndex="currentIndex" @pageChanged="pageChangedHandle"/>
-    <ArticleList :labelList="labelList" :currentIndex="currentIndex" class="list-container"
-                 @swipePage="swipePageChangeHandle"/>
-  </view>
+	<view class="home-container">
+		<NavBar></NavBar>
+		<!-- 添加侧边栏 -->
+		<TabBar :labelList="labelList" :activeIndex="activeIndex" @changeCurrentIndex="changeCurrentIndex"></TabBar>
+		<!-- 文章列表组件 -->
+		<ArticleList :labelList="labelList" class="list-container" :activeIndex="activeIndex" @changeCurrentIndex="changeCurrentIndex"></ArticleList>
+	</view>
 </template>
 
 <script>
-export default {
-  data() {
-    return {
-      labelList: [],
-      currentIndex: 0,
-    }
-  },
-  mounted() {
-    this.fetchLabelList();
-    console.log(this.$http)
-    this.$http.getArticleList().then(res => {
-      console.log(res)
-    })
-  },
-  methods: {
-    fetchLabelList() {
-      this.$http.getLabelList().then(res => {
-        this.labelList = res;
-      })
-    },
-    pageChangedHandle(index) {
-      this.currentIndex = index;
-    },
-    swipePageChangeHandle(index) {
-      this.currentIndex = index;
-    }
-  }
-}
+	export default {
+		onLoad() {
+			this._intiLabelList()
+		},
+		data() {
+			return {
+				labelList: [],
+				activeIndex:0
+			}
+		},
+		methods: {
+			async _intiLabelList() {
+				const labelList = await this.$http.getLabelList()
+				this.labelList = [{name:"全部"},...labelList]
+			},
+			/* 修改当前activeIndex值 */
+			changeCurrentIndex(index) {
+				this.activeIndex = index
+			}
+		},
+	}
 </script>
 
-<style scoped lang="scss">
-.container {
-  @include flex(flex-start, column);
-  color: $base-color;
-}
-
-page {
-  display: flex;
-  height: 100%;
-}
-
-.home-container {
-  flex: 1;
-  overflow: hidden;
-  @include flex(flex-start, column);
-  align-items: inherit;
-}
-
-.list-container {
-  flex: 1;
-}
+<style  lang="scss">
+	page {
+		height: 100%;
+		display: flex;
+	}
+	.home-container {
+		overflow: hidden;
+		flex:1;
+		box-sizing: border-box;
+		@include flex(flex-start,column);
+		align-items: inherit;
+	}
+	.list-container {
+		flex: 1;
+		box-sizing: border-box;
+	}
 </style>

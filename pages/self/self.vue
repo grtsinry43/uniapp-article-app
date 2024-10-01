@@ -1,6 +1,6 @@
 <template>
 	<view>
-		
+		self 
 	</view>
 </template>
 

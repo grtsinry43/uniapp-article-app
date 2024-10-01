@@ -1,43 +1,36 @@
 <template>
-  <view class="list-item-container">
-    <scroll-view scroll-y="true" class="list-inner">
-      <view>
-        <ListCard :item="item" v-for="(item,index) in itemList" :key="index"></ListCard>
-      </view>
-    </scroll-view>
-  </view>
+	<view class="list-scroll-container">
+		<scroll-view scroll-y="true" class="list-scroll">
+			<view>
+				<ListCard :item="item" v-for="item in articleList" :key="item._id"></ListCard>
+			</view>
+      <uni-load-more status="loading"></uni-load-more>
+		</scroll-view>
+	</view>
 </template>
 
 <script>
-export default {
-  name: "ListItem",
-  data() {
-    return {
-      itemList: [
-        {mode: "base"},
-        {mode: "column"},
-        {mode: "img"},
-      ]
-    };
-  },
-  mounted() {
-    this.$http.getArticleList().then(res => {
-      console.log(res)
-      this.itemList = res;
-    })
-  },
-}
+	export default {
+		name:"ListItem",
+		props:{
+			articleList:{
+        type:Array,
+      }
+		},
+		data() {
+			return {
+			};
+		}
+	}
 </script>
 
-<style lang="scss" scoped>
-.list-item-container {
-  height: 100%;
-  padding: 10rpx;
-
-  .list-inner {
-    overflow: hidden;
-    height: 100%;
-    box-sizing: border-box;
-  }
-}
+<style lang="scss">
+	.list-scroll-container {
+		height: 100%;
+		.list-scroll {
+			overflow: hidden;
+			height: 100%;
+			box-sizing: border-box;
+		}
+	}
 </style>

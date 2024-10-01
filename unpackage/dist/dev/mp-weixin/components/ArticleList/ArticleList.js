@@ -1,22 +1,41 @@
 "use strict";
 const common_vendor = require("../../common/vendor.js");
 const _sfc_main = {
-  name: "ArticleList",
   props: {
-    labelList: {
-      type: Array,
-      default: () => []
-    },
-    currentIndex: {
-      type: Number
-    }
+    labelList: Array,
+    activeIndex: Number
+  },
+  created() {
   },
   data() {
-    return {};
+    return {
+      articleData: {},
+      page: 1,
+      pageSize: 6
+    };
+  },
+  watch: {
+    labelList(newVal, OldVal) {
+      this._getArticleList(this.activeIndex);
+    }
   },
   methods: {
-    swipePageHandle(e) {
-      this.$emit("swipePage", e.detail.current);
+    changeCurrentIndex(e) {
+      const { current } = e.detail;
+      this.$emit("changeCurrentIndex", current);
+      if (!this.articleData[current] || this.articleData[current].length === 0) {
+        this._getArticleList(current);
+      }
+    },
+    async _getArticleList(currentIndex) {
+      const articleList = await this.$http.getArticleList({
+        classify: this.labelList[currentIndex].name,
+        page: this.page,
+        pageSize: this.pageSize
+      });
+      const articleListData = articleList.articleList;
+      console.log(articleListData);
+      this.$set(this.articleData, currentIndex, articleListData);
     }
   }
 };
@@ -33,11 +52,14 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     a: common_vendor.f($props.labelList, (item, index, i0) => {
       return {
         a: "0942d1e7-0-" + i0,
-        b: index
+        b: common_vendor.p({
+          articleList: $data.articleData[index]
+        }),
+        c: item._id
       };
     }),
-    b: $props.currentIndex,
-    c: common_vendor.o((...args) => $options.swipePageHandle && $options.swipePageHandle(...args))
+    b: $props.activeIndex,
+    c: common_vendor.o((...args) => $options.changeCurrentIndex && $options.changeCurrentIndex(...args))
   };
 }
 const Component = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render]]);

@@ -1,6 +1,6 @@
 <template>
 	<view>
-		
+		searchPage
 	</view>
 </template>
 

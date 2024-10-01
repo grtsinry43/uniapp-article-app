@@ -32,7 +32,7 @@
   z-index: 99;
   width: 100%;
   background-color: #0077ff;
-  padding: 0 30rpx 20rpx;
+  padding: 0px 30rpx 20rpx;
   box-sizing: border-box;
 }
 .nav-bar .nav-bar-top .nav-bar-content.data-v-9367190c {

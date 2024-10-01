@@ -25,11 +25,10 @@
 /* 文章场景相关 */
 /* 添加一个flex布局的混编方法 */
 /* 全局系统样式定义 */
-.list-item-container.data-v-0f582daa {
+.list-scroll-container {
   height: 100%;
-  padding: 10rpx;
 }
-.list-item-container .list-inner.data-v-0f582daa {
+.list-scroll-container .list-scroll {
   overflow: hidden;
   height: 100%;
   box-sizing: border-box;

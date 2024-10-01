@@ -1,6 +1,6 @@
 <template>
 	<view>
-		
+		follow page
 	</view>
 </template>
 

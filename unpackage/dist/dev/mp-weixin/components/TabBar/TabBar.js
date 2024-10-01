@@ -1,34 +1,28 @@
 "use strict";
 const common_vendor = require("../../common/vendor.js");
 const _sfc_main = {
-  name: "TabBar",
-  data() {
-    return {
-      curItem: "item_0"
-    };
+  props: {
+    labelList: Array,
+    activeIndex: Number
   },
   watch: {
-    currentIndex(index) {
-      this.curItem = "item_" + index;
+    activeIndex(index) {
+      this.currentIndex = `item${index}`;
     }
   },
-  props: {
-    labelList: {
-      type: Array,
-      default: () => []
-    },
-    currentIndex: {
-      type: Number
-    }
+  data() {
+    return {
+      currentIndex: ""
+    };
   },
   methods: {
-    labelAdminHandle() {
+    goLabelAdmin() {
       common_vendor.index.navigateTo({
         url: "/pages/labelAdmin/labelAdmin"
       });
     },
-    changeActiveIndexHandle(index) {
-      this.$emit("pageChanged", index);
+    navClickFn(index) {
+      this.$emit("changeCurrentIndex", index);
     }
   }
 };
@@ -45,20 +39,20 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     a: common_vendor.f($props.labelList, (item, index, i0) => {
       return {
         a: common_vendor.t(item.name),
-        b: common_vendor.o(($event) => $options.changeActiveIndexHandle(index), index),
-        c: $props.currentIndex === index ? 1 : "",
-        d: "item_" + index,
+        b: `item${index}`,
+        c: common_vendor.o(($event) => $options.navClickFn(index), index),
+        d: $props.activeIndex === index ? 1 : "",
         e: index
       };
     }),
-    b: $data.curItem,
-    c: common_vendor.o($options.labelAdminHandle),
+    b: $data.currentIndex,
+    c: common_vendor.o($options.goLabelAdmin),
     d: common_vendor.p({
       type: "gear",
       size: "26",
-      color: "666"
+      color: "#666"
     })
   };
 }
-const Component = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-e632d448"]]);
+const Component = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render]]);
 wx.createComponent(Component);

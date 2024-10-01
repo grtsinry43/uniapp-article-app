@@ -3,8 +3,9 @@ const common_vendor = require("../common/vendor.js");
 const request = ({ name, data = {} }) => {
   return new Promise((resolve, reject) => {
     common_vendor.index.showLoading({});
-    common_vendor.Vs.callFunction({
+    common_vendor.Ys.callFunction({
       name,
+      data,
       success({ result }) {
         if (result.code === 0) {
           resolve(result.data);

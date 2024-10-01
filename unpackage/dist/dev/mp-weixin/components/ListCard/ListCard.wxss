@@ -97,7 +97,7 @@
   border: 1px solid #0077ff;
 }
 .list-card .list-card-content-desc .browse-number {
-  color: #666;
+  color: #007aff;
   line-height: 1.5;
 }
 .list-card .list-card-top, .list-card .list-card-middle, .list-card .list-card-bottom {

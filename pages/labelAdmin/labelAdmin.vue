@@ -1,6 +1,6 @@
 <template>
 	<view>
-		
+		标签管理界面
 	</view>
 </template>
 
